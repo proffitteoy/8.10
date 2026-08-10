@@ -5,7 +5,8 @@ from tempfile import TemporaryDirectory
 import unittest
 
 from vlsi_floorplan.data import Block, FloorplanProblem, parse_blocks, parse_dataset, parse_nets
-from vlsi_floorplan.q1 import solve_q1, validate_solution
+from vlsi_floorplan.construct import construct_upper_bound
+from vlsi_floorplan.q1 import factor_pairs, solve_q1, validate_solution
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -77,6 +78,31 @@ b0
 
 
 class DirectModelTests(unittest.TestCase):
+    def test_factor_pairs_are_sorted_by_shape_gap(self) -> None:
+        pairs = factor_pairs(198372)
+        self.assertEqual(pairs[0], (542, 366))
+        gaps = [width - height for width, height in pairs]
+        self.assertEqual(gaps, sorted(gaps))
+
+    def test_maxrects_constructs_non_overlapping_tiny_layout(self) -> None:
+        problem = FloorplanProblem(
+            source=Path("tiny.blocks"),
+            blocks=(Block("b0", 4, 2), Block("b1", 3, 2), Block("b2", 1, 3)),
+            terminal_names=(),
+        )
+        result = construct_upper_bound(
+            problem,
+            width_samples=4,
+            random_starts=2,
+            local_iterations=8,
+            seed=3,
+        )
+        self.assertEqual(
+            {placement.name for placement in result.layout.placements},
+            {"b0", "b1", "b2"},
+        )
+        self.assertGreaterEqual(result.layout.area, problem.total_block_area)
+
     def test_two_rectangles_reach_exact_area(self) -> None:
         problem = FloorplanProblem(
             source=Path("tiny.blocks"),

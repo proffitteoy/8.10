@@ -1,6 +1,6 @@
 # 2026 年华数杯 B 题：VLSI 布图规划设计
 
-本仓库用于完成 VLSI 布图规划设计的数学建模、算法实验、结果可视化和论文撰写。当前已完成项目冷启动、原始数据盘点，以及问题 1 的 Python + OR-Tools 直接优化基线。
+本仓库用于完成 VLSI 布图规划设计的数学建模、算法实验、结果可视化和论文撰写。当前已完成项目冷启动、原始数据盘点、问题 1 的直接优化基线，以及问题 2 的固定轮廓 CP-SAT 尝试模型。
 
 ## 赛题目标
 
@@ -20,9 +20,9 @@
 | `B题 VLSI布图规划设计.pdf` | 赛题原文与附件格式说明 |
 | `ref/` | B\*-Tree、Fast-SA 等参考论文与参考文献 |
 | `附件/` | `n100`、`n200`、`n300` 三组只读基准数据 |
-| `src/vlsi_floorplan/` | 附件解析、问题 1 直接模型、结果校验与输出 |
+| `src/vlsi_floorplan/` | 附件解析、问题 1/2 直接模型、结果校验与输出 |
 | `tests/` | 数据完整性、异常输入和手算小例测试 |
-| `outputs/q1/` | 问题 1 的可复算 JSON 与 SVG 布局图 |
+| `outputs/q1/`、`outputs/q2/` | 问题 1/2 的可复算 JSON 与 SVG 布局图 |
 | `AGENTS.md` | 本项目的协作、建模和验证契约 |
 | `docs/` | 冷启动及专项参考说明 |
 
@@ -61,6 +61,17 @@ uv run python -m vlsi_floorplan.cli 附件\n100.blocks `
 ```
 
 命令输出 `solution.json` 和 `layout.svg`。JSON 保存完整模块坐标、旋转状态、目标值、求解状态、下界、时间、随机种子和 worker 数。
+
+尝试求解单组问题 2 数据：
+
+```powershell
+uv run python -m vlsi_floorplan.q2_cli 附件\n100.blocks 附件\n100.nets 附件\n100.pl `
+  --output-dir outputs\q2\n100\seed_20260810 `
+  --feasibility-time-limit 30 --optimization-time-limit 60 `
+  --workers 8 --seed 20260810
+```
+
+问题 2 使用整数坐标 CP-SAT 基线。真实边长仍按赛题公式记录；由于模块尺寸为整数，边界约束使用 `floor(L)`，不会因向上取整而引入额外死区。模块中心与 Terminal 坐标统一乘 2 后精确计算整数 HPWL 目标。求解先找可行布局，再限时优化 HPWL；只有状态为 `OPTIMAL` 时才表示该整数模型的全局最优已获证明。
 
 ## 数据格式
 
@@ -101,6 +112,8 @@ uv run python -m vlsi_floorplan.cli 附件\n100.blocks `
 6. 所有实验记录数据集、随机种子、参数、终止条件、运行时间、约束可行性和目标值。
 
 问题 1 的直接求解模型、首轮结果和适用边界见 [docs/Q1直接求解实验.md](./docs/Q1直接求解实验.md)。该基线不使用 B\*-Tree 或模拟退火，也不把限时可行解表述为已证明的全局最优解。
+
+问题 2 的直接模型、固定正方形构造和首轮三组短时结果见 [docs/Q2直接求解实验.md](./docs/Q2直接求解实验.md)。当前结果均为通过独立校验的限时可行解，不是 HPWL 全局最优证明。
 
 ## 原始材料保护
 
