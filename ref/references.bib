@@ -1,0 +1,86 @@
+% VLSI floorplanning references in this directory.
+% Metadata checked against the PDF first pages and Crossref on 2026-08-10.
+%
+% LaTeX usage example:
+%   \cite{Xu1998RectilinearSequencePair}
+%   \bibliographystyle{plain}
+%   \bibliography{ref/references}
+%
+% PDF inventory:
+%   274535.274561.pdf                                              -> Xu1998RectilinearSequencePair
+%   337292.337541.pdf                                              -> Chang2000BStarTrees
+%   tvlsi03-fixed.pdf                                              -> Adya2003FixedOutline
+%   Modern Floorplanning Based on B ∗ -Tree and Fast Simulated.pdf -> Chen2006ModernFloorplanning
+
+% 核心内容：把矩形模块的 Sequence-Pair 表示扩展到任意正交多边形模块。
+% 主要方法：将 L 型、T 型等模块拆成矩形子块，分析 Sequence-Pair 的可行性，
+% 并通过局部调整保持原模块形状，在 ami49 等算例上验证面积利用率。
+% 适合引用：问题 4 的非矩形模块表示、真实形状保持和无重叠布局方法。
+@inproceedings{Xu1998RectilinearSequencePair,
+  author    = {Xu, Jin and Guo, Pei-ning and Cheng, Chung-Kuan},
+  title     = {Rectilinear Block Placement Using Sequence-Pair},
+  booktitle = {Proceedings of the 1998 International Symposium on Physical Design},
+  series    = {ISPD '98},
+  year      = {1998},
+  month     = apr,
+  pages     = {173--178},
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/274535.274561},
+  url       = {https://doi.org/10.1145/274535.274561},
+  file      = {274535.274561.pdf}
+}
+
+% 核心内容：提出用于非切割布局的 B*-Tree 表示，将紧致布局编码为有序二叉树。
+% 主要方法：利用树的父子关系确定模块左右、上下位置，并用轮廓结构在线性摊还
+% 时间内完成布局压紧；同时讨论旋转、预放置、软模块及正交多边形模块。
+% 适合引用：问题 1 的布局编码与搜索邻域，以及问题 4 的非矩形模块扩展依据。
+@inproceedings{Chang2000BStarTrees,
+  author    = {Chang, Yun-Chih and Chang, Yao-Wen and Wu, Guang-Ming and Wu, Shu-Wei},
+  title     = {{B*}-Trees: A New Representation for Non-Slicing Floorplans},
+  booktitle = {Proceedings of the 37th Conference on Design Automation},
+  series    = {DAC '00},
+  year      = {2000},
+  pages     = {458--463},
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/337292.337541},
+  url       = {https://doi.org/10.1145/337292.337541},
+  file      = {337292.337541.pdf}
+}
+
+% 核心内容：系统提出固定轮廓 floorplanning，强调现代层次化芯片设计中轮廓是
+% 约束而非面积目标，并说明固定轮廓问题通常比自由轮廓布局更难。
+% 主要方法：基于 Sequence-Pair 和模拟退火，引入 floorplan slack、针对固定轮廓
+% 的目标函数与扰动操作，同时兼顾可行性、线长及软模块长宽比。
+% 适合引用：问题 2、3 的固定正方形轮廓、可行性搜索和 HPWL 优化建模依据。
+@article{Adya2003FixedOutline,
+  author  = {Adya, Saurabh N. and Markov, Igor L.},
+  title   = {Fixed-Outline Floorplanning: Enabling Hierarchical Design},
+  journal = {IEEE Transactions on Very Large Scale Integration (VLSI) Systems},
+  year    = {2003},
+  month   = dec,
+  volume  = {11},
+  number  = {6},
+  pages   = {1120--1135},
+  doi     = {10.1109/TVLSI.2003.817546},
+  url     = {https://doi.org/10.1109/TVLSI.2003.817546},
+  file    = {tvlsi03-fixed.pdf}
+}
+
+% 核心内容：在 B*-Tree 上提出三阶段 Fast-SA，并将其用于固定轮廓布局和总线驱动布局。
+% 主要方法：先快速贪心下降，再进入正常退火并在末期细化；固定轮廓阶段根据近期
+% 解的状态自适应调整代价权重，以提高满足轮廓约束的成功率并优化线长。
+% 适合引用：问题 2、3 的 B*-Tree + 模拟退火算法框架、动态罚函数和可行率实验设计；
+% 论文报告的是启发式成功率与解质量，不能据此声称得到严格全局最优或严格最小死区。
+@article{Chen2006ModernFloorplanning,
+  author  = {Chen, Tung-Chieh and Chang, Yao-Wen},
+  title   = {Modern Floorplanning Based on {B*}-Tree and Fast Simulated Annealing},
+  journal = {IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems},
+  year    = {2006},
+  month   = apr,
+  volume  = {25},
+  number  = {4},
+  pages   = {637--650},
+  doi     = {10.1109/TCAD.2006.870076},
+  url     = {https://doi.org/10.1109/TCAD.2006.870076},
+  file    = {Modern Floorplanning Based on B ∗ -Tree and Fast Simulated.pdf}
+}

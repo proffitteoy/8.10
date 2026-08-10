@@ -1,6 +1,14 @@
+Metadata-Version: 2.4
+Name: hscup-vlsi-floorplanning
+Version: 0.1.0
+Summary: 2026 华数杯 B 题 VLSI 布图规划建模与实验
+Requires-Python: <3.13,>=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: ortools<10,>=9.14
+
 # 2026 年华数杯 B 题：VLSI 布图规划设计
 
-本仓库用于完成 VLSI 布图规划设计的数学建模、算法实验、结果可视化和论文撰写。当前已完成项目冷启动、原始数据盘点，以及问题 1 的 Python + OR-Tools 直接优化基线。
+本仓库用于完成 VLSI 布图规划设计的数学建模、算法实验、结果可视化和论文撰写。当前已完成项目冷启动与原始数据盘点，尚未引入具体编程语言、算法实现或论文工程。
 
 ## 赛题目标
 
@@ -18,49 +26,12 @@
 | 路径 | 作用 |
 |---|---|
 | `B题 VLSI布图规划设计.pdf` | 赛题原文与附件格式说明 |
-| `ref/` | B\*-Tree、Fast-SA 等参考论文与参考文献 |
+| `Modern Floorplanning Based on B ∗ -Tree and Fast Simulated.pdf` | B\*-Tree、Fast-SA 和固定轮廓布图参考论文 |
 | `附件/` | `n100`、`n200`、`n300` 三组只读基准数据 |
-| `src/vlsi_floorplan/` | 附件解析、问题 1 直接模型、结果校验与输出 |
-| `tests/` | 数据完整性、异常输入和手算小例测试 |
-| `outputs/q1/` | 问题 1 的可复算 JSON 与 SVG 布局图 |
 | `AGENTS.md` | 本项目的协作、建模和验证契约 |
 | `docs/` | 冷启动及专项参考说明 |
 
-## 环境与命令
-
-- Python：3.12（本次验证为 3.12.13）
-- 依赖管理：uv
-- 直接求解器：OR-Tools CP-SAT 9.15.6755（由 `uv.lock` 固定）
-
-安装依赖：
-
-```powershell
-uv sync
-```
-
-若受限 Windows 环境的用户级 uv 缓存不可写，可先设置仓库内缓存：
-
-```powershell
-$env:UV_CACHE_DIR = "$PWD\.uv-cache"
-uv sync
-```
-
-运行测试：
-
-```powershell
-uv run python -m unittest discover -s tests -v
-```
-
-求解单组问题 1 数据：
-
-```powershell
-uv run python -m vlsi_floorplan.cli 附件\n100.blocks `
-  --output-dir outputs\q1\n100\seed_20260810 `
-  --area-time-limit 20 --shape-time-limit 5 `
-  --workers 8 --seed 20260810
-```
-
-命令输出 `solution.json` 和 `layout.svg`。JSON 保存完整模块坐标、旋转状态、目标值、求解状态、下界、时间、随机种子和 worker 数。
+当前没有源码、依赖清单、测试或构建命令。首次加入可运行实现时，应在本 README 中补充语言版本、安装、运行、测试和复现实验命令，不得提前写入未经验证的命令。
 
 ## 数据格式
 
@@ -99,8 +70,6 @@ uv run python -m vlsi_floorplan.cli 附件\n100.blocks `
 4. 用明确的精度、上下界和多随机种子实验处理问题 3。
 5. 在复用问题 1 搜索框架的前提下，引入真实多边形几何处理问题 4。
 6. 所有实验记录数据集、随机种子、参数、终止条件、运行时间、约束可行性和目标值。
-
-问题 1 的直接求解模型、首轮结果和适用边界见 [docs/Q1直接求解实验.md](./docs/Q1直接求解实验.md)。该基线不使用 B\*-Tree 或模拟退火，也不把限时可行解表述为已证明的全局最优解。
 
 ## 原始材料保护
 
