@@ -14,7 +14,7 @@
 <rect x="436.628" y="612.253" width="86.353" height="49.064" fill="hsl(157.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b9</title></rect>
 <rect x="185.418" y="724.120" width="29.439" height="60.840" fill="hsl(295.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b10</title></rect>
 <rect x="1056.803" y="498.424" width="80.466" height="47.102" fill="hsl(72.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b11</title></rect>
-<rect x="774.192" y="100.020" width="37.289" height="33.364" fill="hsl(210.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b12</title></rect>
+<rect x="858.583" y="192.261" width="37.289" height="33.364" fill="hsl(210.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b12</title></rect>
 <rect x="320.836" y="920.378" width="94.204" height="64.765" fill="hsl(347.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b13</title></rect>
 <rect x="210.932" y="490.573" width="86.353" height="41.214" fill="hsl(125.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b14</title></rect>
 <rect x="679.988" y="219.737" width="66.728" height="29.439" fill="hsl(262.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b15</title></rect>
@@ -40,7 +40,7 @@
 <rect x="901.760" y="145.159" width="51.027" height="23.551" fill="hsl(132.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b35</title></rect>
 <rect x="895.872" y="319.829" width="58.877" height="52.990" fill="hsl(270.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b36</title></rect>
 <rect x="328.686" y="153.010" width="56.915" height="23.551" fill="hsl(47.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b37</title></rect>
-<rect x="662.325" y="123.571" width="41.214" height="37.289" fill="hsl(185.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b38</title></rect>
+<rect x="1045.028" y="149.084" width="41.214" height="37.289" fill="hsl(185.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b38</title></rect>
 <rect x="621.111" y="162.822" width="25.514" height="23.551" fill="hsl(322.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b39</title></rect>
 <rect x="491.580" y="527.862" width="92.241" height="37.289" fill="hsl(100.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b40</title></rect>
 <rect x="923.348" y="272.727" width="70.653" height="37.289" fill="hsl(237.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b41</title></rect>
@@ -53,7 +53,7 @@
 <rect x="905.685" y="419.920" width="66.728" height="54.952" fill="hsl(120.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b48</title></rect>
 <rect x="634.849" y="661.318" width="94.204" height="47.102" fill="hsl(257.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b49</title></rect>
 <rect x="232.520" y="121.608" width="37.289" height="27.476" fill="hsl(35.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b50</title></rect>
-<rect x="866.433" y="213.850" width="31.401" height="27.476" fill="hsl(172.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b51</title></rect>
+<rect x="583.822" y="213.850" width="31.401" height="27.476" fill="hsl(172.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b51</title></rect>
 <rect x="403.264" y="272.727" width="72.615" height="35.326" fill="hsl(310.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b52</title></rect>
 <rect x="513.169" y="504.311" width="70.653" height="23.551" fill="hsl(87.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b53</title></rect>
 <rect x="762.416" y="474.873" width="66.728" height="58.877" fill="hsl(225.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b54</title></rect>
@@ -69,7 +69,7 @@
 <rect x="1068.579" y="211.887" width="64.765" height="29.439" fill="hsl(160.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b64</title></rect>
 <rect x="432.703" y="133.384" width="45.139" height="25.514" fill="hsl(298.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b65</title></rect>
 <rect x="970.450" y="985.143" width="88.316" height="82.428" fill="hsl(75.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b66</title></rect>
-<rect x="799.705" y="72.544" width="64.765" height="27.476" fill="hsl(213.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b67</title></rect>
+<rect x="679.988" y="192.261" width="64.765" height="27.476" fill="hsl(213.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b67</title></rect>
 <rect x="452.329" y="720.195" width="88.316" height="54.952" fill="hsl(350.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b68</title></rect>
 <rect x="365.975" y="447.397" width="70.653" height="52.990" fill="hsl(128.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b69</title></rect>
 <rect x="50.000" y="392.444" width="88.316" height="31.401" fill="hsl(265.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b70</title></rect>
@@ -108,7 +108,7 @@
 <rect x="903.722" y="590.665" width="66.728" height="66.728" fill="hsl(123.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b103</title></rect>
 <rect x="479.805" y="304.128" width="82.428" height="27.476" fill="hsl(260.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b104</title></rect>
 <rect x="259.996" y="590.665" width="68.690" height="64.765" fill="hsl(38.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b105</title></rect>
-<rect x="438.591" y="66.656" width="64.765" height="23.551" fill="hsl(175.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b106</title></rect>
+<rect x="328.686" y="176.561" width="64.765" height="23.551" fill="hsl(175.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b106</title></rect>
 <rect x="287.472" y="200.112" width="62.803" height="29.439" fill="hsl(313.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b107</title></rect>
 <rect x="846.807" y="775.147" width="74.578" height="72.615" fill="hsl(90.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b108</title></rect>
 <rect x="882.134" y="1067.572" width="90.279" height="82.428" fill="hsl(228.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b109</title></rect>
@@ -131,14 +131,14 @@
 <rect x="214.857" y="590.665" width="43.177" height="23.551" fill="hsl(46.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b126</title></rect>
 <rect x="784.005" y="594.590" width="84.391" height="49.064" fill="hsl(183.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b127</title></rect>
 <rect x="185.418" y="669.168" width="86.353" height="54.952" fill="hsl(321.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b128</title></rect>
-<rect x="422.890" y="90.207" width="66.728" height="43.177" fill="hsl(98.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b129</title></rect>
+<rect x="1027.365" y="296.278" width="66.728" height="43.177" fill="hsl(98.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b129</title></rect>
 <rect x="50.000" y="296.278" width="58.877" height="51.027" fill="hsl(236.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b130</title></rect>
 <rect x="328.686" y="1061.684" width="94.204" height="88.316" fill="hsl(13.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b131</title></rect>
 <rect x="181.493" y="311.979" width="76.541" height="35.326" fill="hsl(151.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b132</title></rect>
 <rect x="430.740" y="341.417" width="84.391" height="29.439" fill="hsl(288.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b133</title></rect>
 <rect x="228.595" y="918.416" width="92.241" height="66.728" fill="hsl(66.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b134</title></rect>
 <rect x="660.362" y="366.931" width="88.316" height="29.439" fill="hsl(203.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b135</title></rect>
-<rect x="866.433" y="121.608" width="72.615" height="23.551" fill="hsl(341.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b136</title></rect>
+<rect x="825.219" y="225.625" width="72.615" height="23.551" fill="hsl(341.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b136</title></rect>
 <rect x="1027.365" y="211.887" width="41.214" height="54.952" fill="hsl(118.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b137</title></rect>
 <rect x="177.568" y="614.216" width="82.428" height="54.952" fill="hsl(256.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b138</title></rect>
 <rect x="214.857" y="724.120" width="72.615" height="70.653" fill="hsl(33.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b139</title></rect>
@@ -162,12 +162,12 @@
 <rect x="101.027" y="180.486" width="49.064" height="39.252" fill="hsl(348.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b157</title></rect>
 <rect x="577.934" y="565.151" width="25.514" height="45.139" fill="hsl(126.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b158</title></rect>
 <rect x="128.503" y="784.960" width="86.353" height="62.803" fill="hsl(263.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b159</title></rect>
-<rect x="939.049" y="113.758" width="52.990" height="31.401" fill="hsl(41.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b160</title></rect>
+<rect x="150.092" y="164.785" width="52.990" height="31.401" fill="hsl(41.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b160</title></rect>
 <rect x="144.204" y="1059.721" width="92.241" height="90.279" fill="hsl(178.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b161</title></rect>
 <rect x="619.148" y="213.850" width="60.840" height="35.326" fill="hsl(316.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b162</title></rect>
 <rect x="167.755" y="268.802" width="64.765" height="43.177" fill="hsl(93.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b163</title></rect>
 <rect x="589.709" y="845.800" width="80.466" height="70.653" fill="hsl(231.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b164</title></rect>
-<rect x="536.720" y="94.132" width="41.214" height="33.364" fill="hsl(8.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b165</title></rect>
+<rect x="536.720" y="139.272" width="41.214" height="33.364" fill="hsl(8.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b165</title></rect>
 <rect x="106.915" y="651.505" width="70.653" height="66.728" fill="hsl(146.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b166</title></rect>
 <rect x="562.233" y="722.158" width="72.615" height="70.653" fill="hsl(283.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b167</title></rect>
 <rect x="836.994" y="488.611" width="80.466" height="47.102" fill="hsl(61.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b168</title></rect>
@@ -180,7 +180,7 @@
 <rect x="524.944" y="243.288" width="29.439" height="31.401" fill="hsl(303.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b175</title></rect>
 <rect x="271.771" y="655.430" width="74.578" height="64.765" fill="hsl(81.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b176</title></rect>
 <rect x="320.836" y="847.763" width="80.466" height="72.615" fill="hsl(218.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b177</title></rect>
-<rect x="1027.365" y="306.091" width="37.289" height="33.364" fill="hsl(356.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b178</title></rect>
+<rect x="678.025" y="129.459" width="37.289" height="33.364" fill="hsl(356.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b178</title></rect>
 <rect x="950.824" y="918.416" width="90.279" height="66.728" fill="hsl(133.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b179</title></rect>
 <rect x="577.934" y="355.155" width="78.503" height="37.289" fill="hsl(271.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b180</title></rect>
 <rect x="836.994" y="339.455" width="58.877" height="54.952" fill="hsl(48.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b181</title></rect>
@@ -197,7 +197,7 @@
 <rect x="218.782" y="794.773" width="94.204" height="56.915" fill="hsl(121.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b192</title></rect>
 <rect x="913.535" y="239.363" width="64.765" height="33.364" fill="hsl(259.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b193</title></rect>
 <rect x="203.081" y="153.010" width="54.952" height="25.514" fill="hsl(36.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b194</title></rect>
-<rect x="858.583" y="188.336" width="64.765" height="25.514" fill="hsl(174.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b195</title></rect>
+<rect x="772.229" y="101.983" width="64.765" height="25.514" fill="hsl(174.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b195</title></rect>
 <rect x="605.410" y="981.218" width="80.466" height="80.466" fill="hsl(311.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b196</title></rect>
 <rect x="138.316" y="520.012" width="72.615" height="54.952" fill="hsl(89.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b197</title></rect>
 <rect x="674.100" y="573.002" width="94.204" height="37.289" fill="hsl(226.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b198</title></rect>
@@ -207,7 +207,7 @@
 <rect x="287.472" y="720.195" width="76.541" height="66.728" fill="hsl(56.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b202</title></rect>
 <rect x="678.025" y="162.822" width="54.952" height="29.439" fill="hsl(194.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b203</title></rect>
 <rect x="401.302" y="779.072" width="80.466" height="64.765" fill="hsl(331.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b204</title></rect>
-<rect x="621.111" y="100.020" width="41.214" height="29.439" fill="hsl(109.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b205</title></rect>
+<rect x="715.314" y="105.908" width="41.214" height="29.439" fill="hsl(109.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b205</title></rect>
 <rect x="503.356" y="845.800" width="82.428" height="68.690" fill="hsl(246.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b206</title></rect>
 <rect x="364.013" y="392.444" width="64.765" height="54.952" fill="hsl(24.2,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b207</title></rect>
 <rect x="152.054" y="196.186" width="52.990" height="39.252" fill="hsl(161.7,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b208</title></rect>
@@ -255,10 +255,10 @@
 <rect x="990.076" y="527.862" width="66.728" height="60.840" fill="hsl(177.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b250</title></rect>
 <rect x="1023.439" y="847.763" width="84.391" height="66.728" fill="hsl(314.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b251</title></rect>
 <rect x="415.040" y="198.149" width="54.952" height="37.289" fill="hsl(92.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b252</title></rect>
-<rect x="207.006" y="205.999" width="25.514" height="29.439" fill="hsl(229.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b253</title></rect>
+<rect x="791.855" y="139.272" width="29.439" height="25.514" fill="hsl(229.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b253</title></rect>
 <rect x="144.204" y="139.272" width="47.102" height="25.514" fill="hsl(7.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b254</title></rect>
 <rect x="328.686" y="985.143" width="92.241" height="76.541" fill="hsl(144.5,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b255</title></rect>
-<rect x="827.181" y="227.588" width="25.514" height="41.214" fill="hsl(282.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b256</title></rect>
+<rect x="870.358" y="117.683" width="25.514" height="41.214" fill="hsl(282.0,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b256</title></rect>
 <rect x="167.755" y="235.438" width="64.765" height="33.364" fill="hsl(59.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b257</title></rect>
 <rect x="937.086" y="851.688" width="86.353" height="66.728" fill="hsl(197.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b258</title></rect>
 <rect x="367.938" y="555.338" width="51.027" height="23.551" fill="hsl(334.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b259</title></rect>
@@ -272,7 +272,7 @@
 <rect x="108.877" y="718.233" width="76.541" height="66.728" fill="hsl(354.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b267</title></rect>
 <rect x="746.716" y="194.224" width="49.064" height="43.177" fill="hsl(132.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b268</title></rect>
 <rect x="330.649" y="272.727" width="72.615" height="35.326" fill="hsl(269.7,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b269</title></rect>
-<rect x="536.720" y="127.496" width="29.439" height="45.139" fill="hsl(47.2,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b270</title></rect>
+<rect x="1086.242" y="143.197" width="45.139" height="29.439" fill="hsl(47.2,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b270</title></rect>
 <rect x="285.510" y="531.787" width="82.428" height="47.102" fill="hsl(184.7,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b271</title></rect>
 <rect x="899.797" y="372.819" width="68.690" height="47.102" fill="hsl(322.2,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b272</title></rect>
 <rect x="699.614" y="251.139" width="58.877" height="41.214" fill="hsl(99.7,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b273</title></rect>
@@ -285,7 +285,7 @@
 <rect x="638.774" y="249.176" width="60.840" height="43.177" fill="hsl(342.2,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b280</title></rect>
 <rect x="524.944" y="205.999" width="58.877" height="35.326" fill="hsl(119.7,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b281</title></rect>
 <rect x="50.000" y="757.484" width="58.877" height="86.353" fill="hsl(257.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b282</title></rect>
-<rect x="589.709" y="215.812" width="29.439" height="25.514" fill="hsl(34.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b283</title></rect>
+<rect x="762.416" y="133.384" width="29.439" height="25.514" fill="hsl(34.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b283</title></rect>
 <rect x="1072.504" y="241.326" width="58.877" height="41.214" fill="hsl(172.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b284</title></rect>
 <rect x="1025.402" y="186.373" width="64.765" height="25.514" fill="hsl(309.8,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b285</title></rect>
 <rect x="766.342" y="845.800" width="80.466" height="70.653" fill="hsl(87.3,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b286</title></rect>
@@ -302,5 +302,5 @@
 <rect x="1084.279" y="608.328" width="60.840" height="74.578" fill="hsl(159.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b297</title></rect>
 <rect x="634.849" y="718.233" width="78.503" height="64.765" fill="hsl(297.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b298</title></rect>
 <rect x="1058.766" y="608.328" width="25.514" height="25.514" fill="hsl(74.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b299</title></rect>
-<text x="50" y="1182" font-family="sans-serif" font-size="14" fill="#111827">L=560.486842; integer-limit=560; HPWL=823577; status=FEASIBLE</text>
+<text x="50" y="1182" font-family="sans-serif" font-size="14" fill="#111827">L=560.486842; integer-limit=560; HPWL=827426; status=FEASIBLE</text>
 </svg>

@@ -1,6 +1,8 @@
 # 2026 年华数杯 B 题：VLSI 布图规划设计
 
-本仓库用于完成 VLSI 布图规划设计的数学建模、算法实验、结果可视化和论文撰写。当前已完成项目冷启动、原始数据盘点、问题 1 的直接优化基线，以及问题 2 的固定轮廓 CP-SAT 尝试模型。
+本仓库用于完成 VLSI 布图规划设计的数学建模、算法实验、结果可视化和论文撰写。当前已完成原始数据校验、问题 1 混合优化、问题 2 的 CP-SAT 与 B\*-Tree + Fast-SA 对照、问题 3 的三数据集多种子边界实验，以及问题 4 图 3 的正交异形模块精确求解。
+
+快速入口：[文档导航](./docs/README.md) · [结果清单与保留规则](./outputs/README.md)
 
 ## 赛题目标
 
@@ -20,9 +22,9 @@
 | `B题 VLSI布图规划设计.pdf` | 赛题原文与附件格式说明 |
 | `ref/` | B\*-Tree、Fast-SA 等参考论文与参考文献 |
 | `附件/` | `n100`、`n200`、`n300` 三组只读基准数据 |
-| `src/vlsi_floorplan/` | 附件解析、问题 1/2 直接模型、结果校验与输出 |
+| `src/vlsi_floorplan/` | 附件解析、问题 1—4 的模型、搜索、认证、结果校验与输出 |
 | `tests/` | 数据完整性、异常输入和手算小例测试 |
-| `outputs/q1/`、`outputs/q2/` | 问题 1/2 的可复算 JSON 与 SVG 布局图 |
+| `outputs/q1_hybrid/`、`outputs/q2/`、`outputs/q2_bstar/`、`outputs/q3/`、`outputs/q4/` | 各问题的代表结果、算法对照、多种子统计与布局图 |
 | `AGENTS.md` | 本项目的协作、建模和验证契约 |
 | `docs/` | 冷启动及专项参考说明 |
 
@@ -66,12 +68,34 @@ uv run python -m vlsi_floorplan.cli 附件\n100.blocks `
 
 ```powershell
 uv run python -m vlsi_floorplan.q2_cli 附件\n100.blocks 附件\n100.nets 附件\n100.pl `
-  --output-dir outputs\q2\n100\seed_20260810 `
-  --feasibility-time-limit 30 --optimization-time-limit 60 `
-  --workers 8 --seed 20260810
+  --output-dir outputs\q2_bstar\n100\seed_20260810 `
+  --optimization-time-limit 60 `
+  --iterations-per-restart 30000 --restarts 2 `
+  --seed 20260810
 ```
 
-问题 2 使用整数坐标 CP-SAT 基线。真实边长仍按赛题公式记录；由于模块尺寸为整数，边界约束使用 `floor(L)`，不会因向上取整而引入额外死区。模块中心与 Terminal 坐标统一乘 2 后精确计算整数 HPWL 目标。求解先找可行布局，再限时优化 HPWL；只有状态为 `OPTIMAL` 时才表示该整数模型的全局最优已获证明。
+问题 2 使用 B\*-Tree 隐式编码相对位置，轮廓压紧解码自动产生无重叠布局，并以 Rotate、Move、Swap 和三阶段 Fast-SA 搜索固定轮廓内的低 HPWL 解。MaxRects 只提供初始可行上界；若 B\*-Tree 搜索未改进该上界，输出会明确保留 incumbent。Fast-SA 结果是限时可行上界，不提供 HPWL 全局最优证明。
+
+启动单组问题 3 边界搜索：
+
+```powershell
+uv run python -m vlsi_floorplan.q3_cli 附件\n100.blocks 附件\n100.nets 附件\n100.pl `
+  --output-dir outputs\q3\n100\seed_20260810 `
+  --exact-time-limit 30 --exact-workers 8 `
+  --seed 20260810
+```
+
+问题 3 在整数边长上二分搜索：B\*-Tree + Fast-SA 找到布局即可严格收紧可行上界；启发式未找到时，只有 CP-SAT 返回 `INFEASIBLE` 才能提高下界。CP-SAT 超时返回 `UNKNOWN` 时保留未决区间，随后仍在当前最小已知可行边长下执行第二阶段 HPWL 优化。
+
+求解问题 4 的图 3 实例：
+
+```powershell
+uv run python -m vlsi_floorplan.q4_cli `
+  --output-dir outputs\q4\figure3 `
+  --workers 1 --seed 20260810
+```
+
+问题 4 将 L/T 型模块分解为互不重叠的组成矩形，预生成四向旋转，并对全部组成矩形施加二维非重叠约束。图 3 得到 `6×4`（等价于整体旋转后的 `4×6`）零死区布局；可行面积 24 等于模块总面积下界 24，因此最小面积得到严格证明。
 
 ## 数据格式
 
@@ -113,10 +137,14 @@ uv run python -m vlsi_floorplan.q2_cli 附件\n100.blocks 附件\n100.nets 附�
 
 问题 1 的直接求解模型、首轮结果和适用边界见 [docs/Q1直接求解实验.md](./docs/Q1直接求解实验.md)。该基线不使用 B\*-Tree 或模拟退火，也不把限时可行解表述为已证明的全局最优解。
 
-问题 2 的直接模型、固定正方形构造和首轮三组短时结果见 [docs/Q2直接求解实验.md](./docs/Q2直接求解实验.md)。当前结果均为通过独立校验的限时可行解，不是 HPWL 全局最优证明。
+问题 2 的现行 B\*-Tree + Fast-SA 实现及三数据集、三种子对照见 [docs/Q2-BStar-FastSA.md](./docs/Q2-BStar-FastSA.md)；旧直接模型实验保留在 [docs/Q2直接求解实验.md](./docs/Q2直接求解实验.md)。统一预算下 Fast-SA 未超过旧 CP-SAT，因此问题 2 当前最好 HPWL 仍取旧基线结果。
+
+问题 3 的设计主线见 [docs/Q3设计.md](./docs/Q3设计.md)，三数据集多种子实验、认证区间和 `UNKNOWN` 语义见 [docs/Q3实现说明.md](./docs/Q3实现说明.md)。
+
+问题 4 的模型修正、图 3 精确布局、面积最优性证明与产物说明见 [docs/Q4求解实验.md](./docs/Q4求解实验.md)。
 
 ## 原始材料保护
 
 赛题 PDF、参考论文和 `附件/` 是原始输入，不应被修改或用于存放结果。后续产生的布局、图表、日志和汇总数据应写入独立输出目录，并保持可复现和可追溯。
 
-冷启动的事实依据和裁剪说明见 [docs/冷启动结论.md](./docs/冷启动结论.md)。
+现有建模、算法、实验和历史基线的阅读顺序见 [docs/README.md](./docs/README.md)。

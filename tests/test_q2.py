@@ -62,8 +62,8 @@ class HpwlTests(unittest.TestCase):
             compute_net_hpwl2(dataset, placements)
 
 
-class Q2DirectModelTests(unittest.TestCase):
-    def test_solver_objective_matches_mixed_terminal_net(self) -> None:
+class Q2BStarFastSATests(unittest.TestCase):
+    def test_search_objective_matches_mixed_terminal_net(self) -> None:
         dataset = _dataset(
             blocks=(Block("b0", 2, 2),),
             terminals=(Terminal("p0", 4.0, 1.0),),
@@ -71,13 +71,15 @@ class Q2DirectModelTests(unittest.TestCase):
         )
         solution = solve_q2(
             dataset,
-            feasibility_time_limit=1,
+            iterations_per_restart=50,
+            restarts=1,
             optimization_time_limit=2,
-            workers=1,
             seed=7,
         )
         self.assertEqual(solution.total_hpwl, 3)
-        self.assertTrue(solution.hpwl_proven_optimal)
+        self.assertLessEqual(solution.total_hpwl2, solution.construction.initial_hpwl2)
+        self.assertFalse(solution.hpwl_proven_optimal)
+        self.assertGreater(solution.annealing.completed_iterations, 0)
 
     def test_two_blocks_reach_hand_calculated_optimum(self) -> None:
         dataset = _dataset(
@@ -86,16 +88,16 @@ class Q2DirectModelTests(unittest.TestCase):
         )
         solution = solve_q2(
             dataset,
-            feasibility_time_limit=2,
+            iterations_per_restart=100,
+            restarts=1,
             optimization_time_limit=5,
-            workers=1,
             seed=7,
         )
 
         validate_q2_solution(dataset, solution)
         self.assertEqual(solution.coordinate_limit, 2)
         self.assertEqual(solution.total_hpwl, 1)
-        self.assertTrue(solution.hpwl_proven_optimal)
+        self.assertFalse(solution.hpwl_proven_optimal)
 
     def test_validation_rejects_overlap(self) -> None:
         dataset = _dataset(
@@ -104,9 +106,9 @@ class Q2DirectModelTests(unittest.TestCase):
         )
         solution = solve_q2(
             dataset,
-            feasibility_time_limit=2,
+            iterations_per_restart=50,
+            restarts=1,
             optimization_time_limit=2,
-            workers=1,
             seed=7,
         )
         first, second = solution.placements
@@ -128,10 +130,9 @@ class Q2DirectModelTests(unittest.TestCase):
             net_hpwl2=solution.net_hpwl2,
             total_hpwl2=solution.total_hpwl2,
             construction=solution.construction,
-            feasibility_phase=solution.feasibility_phase,
-            optimization_phase=solution.optimization_phase,
+            feasibility_annealing=solution.feasibility_annealing,
+            annealing=solution.annealing,
             seed=solution.seed,
-            workers=solution.workers,
         )
         with self.assertRaisesRegex(ValueError, "重叠"):
             validate_q2_solution(dataset, bad_solution)

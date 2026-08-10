@@ -1,0 +1,10 @@
+dataset,seed,total_hpwl,construction_feasible_attempts,feasibility_best_violation,feasibility_feasible_evaluations,hpwl_feasible_evaluations,hpwl_iterations,used_incumbent,validated
+n100,20260810,286046.5,13/16,0,1,1,44803,true,true
+n100,20260811,286046.5,13/16,0,1,14,43145,true,true
+n100,20260812,286046.5,13/16,0,1,5,45823,true,true
+n200,20260810,544083.5,15/16,81,0,0,11062,true,true
+n200,20260811,544083.5,15/16,29,0,0,10321,true,true
+n200,20260812,544083.5,15/16,16,0,0,10350,true,true
+n300,20260810,829086.5,16/16,584,0,0,8612,true,true
+n300,20260811,829086.5,16/16,269,0,0,8496,true,true
+n300,20260812,829086.5,16/16,153,0,0,8550,true,true

@@ -1,0 +1,175 @@
+{
+  "case": "figure3",
+  "module_count": 4,
+  "width": 6,
+  "height": 4,
+  "area": 24,
+  "total_module_area": 24,
+  "dead_space_ratio": 0.0,
+  "aspect_ratio": 1.5,
+  "area_proven_optimal": true,
+  "lexicographic_proven_optimal": true,
+  "proof": {
+    "area_lower_bound": 24,
+    "feasible_area": 24,
+    "reason": "模块总面积下界与可行轮廓面积相等"
+  },
+  "method": "component-rectangles+four-orientation+cp-sat-outline-enumeration",
+  "seed": 20260810,
+  "workers": 1,
+  "modules": [
+    {
+      "name": "b1",
+      "components": [
+        {
+          "x": 0,
+          "y": 2,
+          "width": 4,
+          "height": 2
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "width": 2,
+          "height": 2
+        }
+      ]
+    },
+    {
+      "name": "b2",
+      "components": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 4
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "width": 1,
+          "height": 2
+        }
+      ]
+    },
+    {
+      "name": "b3",
+      "components": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 2,
+          "height": 1
+        }
+      ]
+    },
+    {
+      "name": "b4",
+      "components": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 4
+        }
+      ]
+    }
+  ],
+  "search": {
+    "area_lower_bound": 24,
+    "initial_area_upper_bound": 36,
+    "checked_outlines": 1,
+    "proven_infeasible_outlines": 0,
+    "unresolved_outlines": 0,
+    "wall_time_seconds": 0.03280100000120001,
+    "attempts": [
+      {
+        "width": 6,
+        "height": 4,
+        "area": 24,
+        "status": "OPTIMAL",
+        "wall_time_seconds": 0.0300796,
+        "conflicts": 12,
+        "branches": 196
+      }
+    ]
+  },
+  "placements": [
+    {
+      "name": "b1",
+      "x": 2,
+      "y": 0,
+      "orientation_degrees": 270,
+      "width": 4,
+      "height": 4,
+      "components": [
+        {
+          "x": 0,
+          "y": 1,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 2,
+          "y": 0,
+          "width": 2,
+          "height": 4
+        }
+      ]
+    },
+    {
+      "name": "b2",
+      "x": 0,
+      "y": 2,
+      "orientation_degrees": 270,
+      "width": 4,
+      "height": 2,
+      "components": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 2,
+          "height": 1
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "width": 4,
+          "height": 1
+        }
+      ]
+    },
+    {
+      "name": "b3",
+      "x": 0,
+      "y": 1,
+      "orientation_degrees": 0,
+      "width": 2,
+      "height": 1,
+      "components": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 2,
+          "height": 1
+        }
+      ]
+    },
+    {
+      "name": "b4",
+      "x": 0,
+      "y": 0,
+      "orientation_degrees": 90,
+      "width": 4,
+      "height": 1,
+      "components": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 4,
+          "height": 1
+        }
+      ]
+    }
+  ]
+}

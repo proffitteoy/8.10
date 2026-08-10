@@ -10,6 +10,7 @@ from pathlib import Path
 from .data import FloorplanDataset, FloorplanProblem
 from .q1 import Q1Solution
 from .q2 import Q2Solution
+from .q3 import Q3Solution
 
 
 def write_solution_json(problem: FloorplanProblem, solution: Q1Solution, path: str | Path) -> Path:
@@ -111,12 +112,13 @@ def write_q2_solution_json(
         "hpwl_proven_optimal": solution.hpwl_proven_optimal,
         "method": solution.method,
         "seed": solution.seed,
-        "workers": solution.workers,
         "construction": asdict(solution.construction),
-        "feasibility_phase": (
-            asdict(solution.feasibility_phase) if solution.feasibility_phase else None
+        "feasibility_annealing": (
+            asdict(solution.feasibility_annealing)
+            if solution.feasibility_annealing is not None
+            else None
         ),
-        "optimization_phase": asdict(solution.optimization_phase),
+        "annealing": asdict(solution.annealing),
         "net_hpwl2": list(solution.net_hpwl2),
         "placements": [asdict(placement) for placement in solution.placements],
     }
@@ -164,9 +166,49 @@ def write_q2_solution_svg(
     lines.append(
         f'<text x="{margin}" y="{canvas_size - 18}" font-family="sans-serif" font-size="14" fill="#111827">'
         f'L={solution.chip_side:.6f}; integer-limit={solution.coordinate_limit}; '
-        f'HPWL={solution.total_hpwl:g}; status={escape(solution.optimization_phase.status)}'
+        f'HPWL={solution.total_hpwl:g}; method={escape(solution.method)}'
         "</text>"
     )
     lines.append("</svg>")
     destination.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return destination
+
+
+def write_q3_solution_json(
+    dataset: FloorplanDataset,
+    solution: Q3Solution,
+    path: str | Path,
+) -> Path:
+    """写出第三问的边长上下界证据、两阶段统计和最终布局。"""
+
+    destination = Path(path)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "dataset": dataset.problem.source.stem,
+        "sources": {
+            "blocks": str(dataset.problem.source),
+            "nets": str(dataset.problem.source.with_suffix(".nets")),
+            "pl": str(dataset.problem.source.with_suffix(".pl")),
+        },
+        "block_count": len(dataset.problem.blocks),
+        "terminal_count": len(dataset.terminals),
+        "net_count": len(dataset.nets),
+        "pin_count": dataset.pin_count,
+        "method": solution.method,
+        "chip_side": solution.chip_side,
+        "total_block_area": solution.total_block_area,
+        "dead_space_ratio": solution.dead_space_ratio,
+        "minimum_dead_space_proven": solution.minimum_dead_space_proven,
+        "total_hpwl": solution.total_hpwl,
+        "total_hpwl2": solution.total_hpwl2,
+        "seed": solution.seed,
+        "initial_construction": asdict(solution.initial_construction),
+        "boundary_search": asdict(solution.boundary_search),
+        "hpwl_annealing": asdict(solution.hpwl_annealing),
+        "net_hpwl2": list(solution.net_hpwl2),
+        "placements": [asdict(placement) for placement in solution.placements],
+    }
+    destination.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     return destination
