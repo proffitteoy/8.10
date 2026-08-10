@@ -1,0 +1,33 @@
+[
+  {
+    "dataset": "n100",
+    "source_commit": "bba147b",
+    "current_validator": "PASS",
+    "recorded_total_hpwl2": 552171,
+    "recomputed_total_hpwl2": 552171,
+    "recomputed_total_hpwl": 276085.5,
+    "historical_optimization_objective_hpwl2": 552171,
+    "objective_field_consistent": true
+  },
+  {
+    "dataset": "n200",
+    "source_commit": "bba147b",
+    "current_validator": "PASS",
+    "recorded_total_hpwl2": 1085817,
+    "recomputed_total_hpwl2": 1085817,
+    "recomputed_total_hpwl": 542908.5,
+    "historical_optimization_objective_hpwl2": 1085817,
+    "objective_field_consistent": true
+  },
+  {
+    "dataset": "n300",
+    "source_commit": "bba147b",
+    "current_validator": "PASS",
+    "recorded_total_hpwl2": 1647154,
+    "recomputed_total_hpwl2": 1647154,
+    "recomputed_total_hpwl": 823577.0,
+    "historical_optimization_objective_hpwl2": 1647156,
+    "objective_field_consistent": false,
+    "note": "The historical optimization objective differs by 2, but placements, per-net HPWL, recorded total and current recomputation agree."
+  }
+]

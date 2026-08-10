@@ -24,6 +24,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--heuristic-time-limit", type=float, default=10.0)
     parser.add_argument("--exact-time-limit", type=float, default=30.0)
     parser.add_argument("--exact-workers", type=int, default=8)
+    parser.add_argument("--max-boundary-steps", type=int, default=12)
     parser.add_argument("--hpwl-iterations", type=int, default=10_000)
     parser.add_argument("--hpwl-restarts", type=int, default=4)
     parser.add_argument("--hpwl-time-limit", type=float, default=60.0)
@@ -41,6 +42,7 @@ def main(argv: list[str] | None = None) -> int:
         heuristic_time_limit_per_side=args.heuristic_time_limit,
         exact_time_limit_per_side=args.exact_time_limit,
         exact_workers=args.exact_workers,
+        max_boundary_steps=args.max_boundary_steps,
         hpwl_iterations_per_restart=args.hpwl_iterations,
         hpwl_restarts=args.hpwl_restarts,
         hpwl_time_limit=args.hpwl_time_limit,

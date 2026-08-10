@@ -302,5 +302,5 @@
 <rect x="375.698" y="422.812" width="77.840" height="63.501" fill="hsl(159.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b297</title></rect>
 <rect x="50.000" y="529.330" width="81.937" height="67.598" fill="hsl(297.4,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b298</title></rect>
 <rect x="1031.192" y="101.210" width="26.629" height="26.629" fill="hsl(74.9,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b299</title></rect>
-<text x="50" y="1182" font-family="sans-serif" font-size="14" fill="#111827">L=537.000000; integer-limit=537; HPWL=833931; method=binary-bstar-exact-certification-feasible-incumbent</text>
+<text x="50" y="1182" font-family="sans-serif" font-size="14" fill="#111827">L=537.000000; integer-limit=537; HPWL=833931; method=maxrects-boundary-search</text>
 </svg>

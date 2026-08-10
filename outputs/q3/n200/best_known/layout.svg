@@ -202,5 +202,5 @@
 <rect x="907.541" y="1027.494" width="119.954" height="89.327" fill="hsl(89.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b197</title></rect>
 <rect x="703.364" y="524.710" width="56.148" height="102.088" fill="hsl(226.6,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b198</title></rect>
 <rect x="973.898" y="621.694" width="102.088" height="86.775" fill="hsl(4.1,65%,78%)" stroke="#374151" stroke-width="0.8"><title>b199</title></rect>
-<text x="50" y="1182" font-family="sans-serif" font-size="14" fill="#111827">L=431.000000; integer-limit=431; HPWL=557007; method=binary-bstar-exact-certification-feasible-incumbent</text>
+<text x="50" y="1182" font-family="sans-serif" font-size="14" fill="#111827">L=431.000000; integer-limit=431; HPWL=557007; method=maxrects-boundary-search</text>
 </svg>

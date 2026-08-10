@@ -1,0 +1,4 @@
+dataset,side_lower_bound,best_known_feasible_side,dead_space_ratio,total_hpwl,minimum_proven,hpwl_optimized,source
+n100,424,436,0.05902474080924347,298120.0,False,False,outputs\q3\n100\candidate_436_ten_minute.json
+n200,420,431,0.057286449321555466,557007.0,False,False,outputs\q3\n200\seed_20260810\solution.json
+n300,523,537,0.055639345462532575,833931.0,False,False,outputs\q3\n300\seed_20260810\solution.json

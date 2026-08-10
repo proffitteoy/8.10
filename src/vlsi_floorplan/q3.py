@@ -47,10 +47,12 @@ class BoundarySearchStep:
     side: int
     lower_before: int
     upper_before: int
+    constructive_feasible: bool
+    constructive_feasible_attempts: int
     heuristic_violation: int
     heuristic_feasible: bool
     heuristic_iterations: int
-    heuristic_stats: FastSAStats
+    heuristic_stats: FastSAStats | None
     exact_status: str | None
     exact_stats: ExactFeasibilityStats | None
     decision: str
@@ -65,6 +67,8 @@ class BoundarySearchStats:
     final_lower_bound: int
     final_feasible_upper_bound: int
     certified_infeasible_through: int
+    max_steps: int
+    unknown_sides: tuple[int, ...]
     status: str
     steps: tuple[BoundarySearchStep, ...]
 
@@ -122,6 +126,36 @@ def theoretical_side_lower_bound(problem: FloorplanProblem) -> int:
     return max(area_bound, block_bound)
 
 
+def _next_boundary_candidate(
+    lower: int,
+    upper: int,
+    unknown_sides: set[int],
+) -> int | None:
+    """优先从靠近可行上界的未测试连续区间中选择中点。
+
+    ``UNKNOWN`` 点既不能提高已认证下界，也不能作为可行上界。将其从候选集合
+    中剔除后，继续搜索其上方区间以优先压缩可行上界；上方耗尽后再处理下方
+    区间。这样可以保留严格的 ``lower <= L* <= upper`` 语义，同时避免在同一
+    未决点重复求解。
+    """
+
+    if lower >= upper:
+        return None
+    relevant_unknown = sorted(side for side in unknown_sides if lower <= side < upper)
+    intervals: list[tuple[int, int]] = []
+    start = lower
+    for side in relevant_unknown:
+        if start <= side - 1:
+            intervals.append((start, side - 1))
+        start = side + 1
+    if start <= upper - 1:
+        intervals.append((start, upper - 1))
+    if not intervals:
+        return None
+    interval_lower, interval_upper = max(intervals, key=lambda interval: interval[1])
+    return (interval_lower + interval_upper + 1) // 2
+
+
 def _build_feasibility_model(problem: FloorplanProblem, side: int) -> _FeasibilityModel:
     model = cp_model.CpModel()
     rotations: list[cp_model.IntVar] = []
@@ -156,6 +190,14 @@ def _build_feasibility_model(problem: FloorplanProblem, side: int) -> _Feasibili
         xs.append(x)
         ys.append(y)
     model.add_no_overlap_2d(x_intervals, y_intervals)
+    model.add_cumulative(x_intervals, heights, side)
+    model.add_cumulative(y_intervals, widths, side)
+    min_x = model.new_int_var(0, side, "min_x")
+    min_y = model.new_int_var(0, side, "min_y")
+    model.add_min_equality(min_x, xs)
+    model.add_min_equality(min_y, ys)
+    model.add(min_x == 0)
+    model.add(min_y == 0)
     return _FeasibilityModel(model, rotations, widths, heights, xs, ys)
 
 
@@ -166,6 +208,7 @@ def check_exact_feasibility(
     time_limit: float = 30.0,
     workers: int = 8,
     seed: int = 20260810,
+    hint_placements: tuple[Placement, ...] | None = None,
 ) -> tuple[ExactFeasibilityStats, tuple[Placement, ...] | None]:
     """只在 CP-SAT 明确返回 INFEASIBLE 时给出不可行认证。"""
 
@@ -189,10 +232,30 @@ def check_exact_feasibility(
         )
 
     context = _build_feasibility_model(problem, side)
+    if hint_placements is not None:
+        hints_by_name = {placement.name: placement for placement in hint_placements}
+        for index, block in enumerate(problem.blocks):
+            hint = hints_by_name.get(block.name)
+            if hint is None:
+                continue
+            hinted_width = block.height if hint.rotated else block.width
+            hinted_height = block.width if hint.rotated else block.height
+            context.model.add_hint(context.rotations[index], int(hint.rotated))
+            context.model.add_hint(
+                context.xs[index], max(0, min(hint.x, side - hinted_width))
+            )
+            context.model.add_hint(
+                context.ys[index], max(0, min(hint.y, side - hinted_height))
+            )
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = time_limit
     solver.parameters.num_search_workers = workers
     solver.parameters.random_seed = seed
+    solver.parameters.use_energetic_reasoning_in_no_overlap_2d = True
+    solver.parameters.use_area_energetic_reasoning_in_no_overlap_2d = True
+    solver.parameters.use_timetabling_in_no_overlap_2d = True
+    solver.parameters.use_try_edge_reasoning_in_no_overlap_2d = True
+    solver.parameters.use_combined_no_overlap = True
     status = solver.solve(context.model)
     has_solution = status in (cp_model.OPTIMAL, cp_model.FEASIBLE)
     placements = None
@@ -231,6 +294,7 @@ def solve_q3(
     heuristic_time_limit_per_side: float = 10.0,
     exact_time_limit_per_side: float = 30.0,
     exact_workers: int = 8,
+    max_boundary_steps: int = 12,
     hpwl_iterations_per_restart: int = 10_000,
     hpwl_restarts: int = 4,
     hpwl_time_limit: float = 60.0,
@@ -244,6 +308,7 @@ def solve_q3(
         "heuristic_time_limit_per_side": heuristic_time_limit_per_side,
         "exact_time_limit_per_side": exact_time_limit_per_side,
         "exact_workers": exact_workers,
+        "max_boundary_steps": max_boundary_steps,
         "hpwl_iterations_per_restart": hpwl_iterations_per_restart,
         "hpwl_restarts": hpwl_restarts,
         "hpwl_time_limit": hpwl_time_limit,
@@ -261,77 +326,108 @@ def solve_q3(
     lower = theoretical_lower
     upper = initial_upper
     certified_infeasible_through = theoretical_lower - 1
+    unknown_sides: set[int] = set()
     steps: list[BoundarySearchStep] = []
     search_status = "CERTIFIED_INTEGER_MINIMUM" if lower == upper else "SEARCHING"
 
-    while lower < upper:
-        midpoint = (lower + upper) // 2
+    while lower < upper and len(steps) < max_boundary_steps:
+        midpoint = _next_boundary_candidate(lower, upper, unknown_sides)
+        if midpoint is None:
+            search_status = "UNRESOLVED_EXACT_TIMEOUT"
+            break
         lower_before, upper_before = lower, upper
-        initial_tree = bstar_tree_from_placements(dataset.problem, upper_placements)
-        if initial_tree is None:
-            initial_tree = complete_bstar_tree(
-                dataset.problem,
-                outline_limit=midpoint,
+        constructive_feasible = False
+        constructive_feasible_attempts = 0
+        constructive_placements: tuple[Placement, ...] | None = None
+        try:
+            constructive_placements, candidate_construction = construct_fixed_outline_seed(
+                dataset, midpoint
             )
-        heuristic = fast_simulated_annealing(
-            dataset.problem,
-            outline_limit=midpoint,
-            objective="feasibility",
-            initial_tree=initial_tree,
-            iterations_per_restart=heuristic_iterations_per_restart,
-            restarts=heuristic_restarts,
-            seed=seed + len(steps),
-            time_limit=heuristic_time_limit_per_side,
-            stop_on_first_feasible=True,
-        )
+            constructive_feasible = True
+            constructive_feasible_attempts = candidate_construction.feasible_attempts
+        except RuntimeError:
+            pass
 
         exact_status: str | None = None
         exact_stats: ExactFeasibilityStats | None = None
-        if heuristic.feasible:
+        heuristic_stats: FastSAStats | None = None
+        heuristic_violation = 0
+        heuristic_feasible = constructive_feasible
+        heuristic_iterations = 0
+        if constructive_placements is not None:
             upper = midpoint
-            upper_placements = heuristic.placements
-            decision = "HEURISTIC_FEASIBLE_UPPER_REDUCED"
+            upper_placements = constructive_placements
+            decision = "MAXRECTS_FEASIBLE_UPPER_REDUCED"
         else:
-            exact, exact_placements = check_exact_feasibility(
+            initial_tree = bstar_tree_from_placements(dataset.problem, upper_placements)
+            if initial_tree is None:
+                initial_tree = complete_bstar_tree(
+                    dataset.problem,
+                    outline_limit=midpoint,
+                )
+            heuristic = fast_simulated_annealing(
                 dataset.problem,
-                midpoint,
-                time_limit=exact_time_limit_per_side,
-                workers=exact_workers,
+                outline_limit=midpoint,
+                objective="feasibility",
+                initial_tree=initial_tree,
+                iterations_per_restart=heuristic_iterations_per_restart,
+                restarts=heuristic_restarts,
                 seed=seed + len(steps),
+                time_limit=heuristic_time_limit_per_side,
+                stop_on_first_feasible=True,
             )
-            exact_status = exact.status
-            exact_stats = exact
-            if exact.has_solution and exact_placements is not None:
+            heuristic_stats = heuristic.stats
+            heuristic_violation = heuristic.violation
+            heuristic_feasible = heuristic.feasible
+            heuristic_iterations = heuristic.stats.completed_iterations
+            if heuristic.feasible:
                 upper = midpoint
-                upper_placements = exact_placements
-                decision = "EXACT_FEASIBLE_UPPER_REDUCED"
-            elif exact.proven_infeasible:
-                lower = midpoint + 1
-                certified_infeasible_through = max(certified_infeasible_through, midpoint)
-                decision = "EXACT_INFEASIBLE_LOWER_RAISED"
+                upper_placements = heuristic.placements
+                decision = "HEURISTIC_FEASIBLE_UPPER_REDUCED"
             else:
-                decision = "EXACT_UNKNOWN_INTERVAL_RETAINED"
-                search_status = "UNRESOLVED_EXACT_TIMEOUT"
+                exact, exact_placements = check_exact_feasibility(
+                    dataset.problem,
+                    midpoint,
+                    time_limit=exact_time_limit_per_side,
+                    workers=exact_workers,
+                    seed=seed + len(steps),
+                    hint_placements=upper_placements,
+                )
+                exact_status = exact.status
+                exact_stats = exact
+                if exact.has_solution and exact_placements is not None:
+                    upper = midpoint
+                    upper_placements = exact_placements
+                    decision = "EXACT_FEASIBLE_UPPER_REDUCED"
+                elif exact.proven_infeasible:
+                    lower = midpoint + 1
+                    certified_infeasible_through = max(certified_infeasible_through, midpoint)
+                    decision = "EXACT_INFEASIBLE_LOWER_RAISED"
+                else:
+                    decision = "EXACT_UNKNOWN_INTERVAL_RETAINED"
+                    unknown_sides.add(midpoint)
+                    search_status = "UNRESOLVED_EXACT_TIMEOUT"
 
         steps.append(
             BoundarySearchStep(
                 side=midpoint,
                 lower_before=lower_before,
                 upper_before=upper_before,
-                heuristic_violation=heuristic.violation,
-                heuristic_feasible=heuristic.feasible,
-                heuristic_iterations=heuristic.stats.completed_iterations,
-                heuristic_stats=heuristic.stats,
+                constructive_feasible=constructive_feasible,
+                constructive_feasible_attempts=constructive_feasible_attempts,
+                heuristic_violation=heuristic_violation,
+                heuristic_feasible=heuristic_feasible,
+                heuristic_iterations=heuristic_iterations,
+                heuristic_stats=heuristic_stats,
                 exact_status=exact_status,
                 exact_stats=exact_stats,
                 decision=decision,
             )
         )
-        if decision == "EXACT_UNKNOWN_INTERVAL_RETAINED":
-            break
-
     if lower == upper:
         search_status = "CERTIFIED_INTEGER_MINIMUM"
+    elif len(steps) >= max_boundary_steps:
+        search_status = "UNRESOLVED_STEP_LIMIT"
 
     boundary_search = BoundarySearchStats(
         theoretical_lower_bound=theoretical_lower,
@@ -339,6 +435,8 @@ def solve_q3(
         final_lower_bound=lower,
         final_feasible_upper_bound=upper,
         certified_infeasible_through=certified_infeasible_through,
+        max_steps=max_boundary_steps,
+        unknown_sides=tuple(sorted(side for side in unknown_sides if lower <= side < upper)),
         status=search_status,
         steps=tuple(steps),
     )
